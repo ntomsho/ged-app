@@ -8,6 +8,8 @@ import './index.css'
 import Account from './routes/account.tsx'
 import { AuthContextProvider } from './context/AuthContext.tsx'
 import Protected from './components/Protected.tsx'
+import CharacterCreator from './routes/characterCreator.tsx'
+import { NewCharacterProvider } from './context/NewCharContext.tsx'
 
 const router = createBrowserRouter([
   {
@@ -17,6 +19,10 @@ const router = createBrowserRouter([
   {
     path: '/account',
     element: <Protected><Account /></Protected>
+  },
+  {
+    path: '/character/new',
+    element: <Protected><NewCharacterProvider><CharacterCreator /></NewCharacterProvider></Protected>
   }
 ]);
 

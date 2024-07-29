@@ -30,6 +30,7 @@ export interface ICharacterFeature {
     type: string;
     name: string;
     upgraded: boolean;
+    startingItems: IItem[];
 }
 
 export interface IItem {
@@ -44,9 +45,9 @@ export interface ICharacter {
     maxHealth: number;
     currentDerpPoints: number;
     traits: {
-        background: IDerpTrait;
-        style: IDerpTrait;
-        derp: IDerpTrait;
+        Background: IDerpTrait;
+        Style: IDerpTrait;
+        Derp: IDerpTrait;
     };
     skills: {
         'Brute Force': boolean;

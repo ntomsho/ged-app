@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { UserAuth } from '../context/AuthContext';
 import { getDatabase, ref, onValue } from "firebase/database";
 import { ICharacter } from "../types";
+import { useNavigate } from "react-router-dom";
 
 function Account() {
     const { user, logout } = UserAuth();
@@ -9,6 +10,7 @@ function Account() {
     const [characters, setCharacters] = useState([]);
 
     const db = getDatabase();
+    const navigate = useNavigate();
 
     useEffect(() => {
       const charactersRef = ref(db, `characters/${user?.uid}`);
@@ -36,6 +38,7 @@ function Account() {
             Welcome {user!.displayName}
         </h1>
         <h3>Characters</h3>
+        <button onClick={() => navigate('/character/new')}>New Character</button>
         <ul>
           {characters.map((character: ICharacter, index) => (
             <li key={index}>{character.characterName}</li>
