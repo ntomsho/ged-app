@@ -20,8 +20,8 @@ export interface IDerpTrait {
 
 export interface ISkill {
     type: 'Fighting' | 'Normal';
-    name: string;
-    usedFor: string;
+    name: 'Brute Force' | 'Ocular Prowess' | 'Rad Moves' | 'Creepin\'' | 'Friendshippery' | 'Macgyver' | 'Man vs. Wild' | 'Thinkiness';
+    usedFor: string[];
     extraInfo: string;
     emoji: string;
 }
@@ -49,17 +49,7 @@ export interface ICharacter {
         Style: IDerpTrait;
         Derp: IDerpTrait;
     };
-    skills: {
-        'Brute Force': boolean;
-        'Ocular Prowess': boolean;
-        'Rad Moves': boolean;
-        'Cardio': boolean;
-        'Creepin\'': boolean;
-        'Friendshippery': boolean;
-        'Macgyver': boolean;
-        'Man vs. Wild': boolean;
-        'Thinkiness': boolean;
-    };
+    trainedSkills: ('Brute Force' | 'Ocular Prowess' | 'Rad Moves' | 'Creepin\'' | 'Friendshippery' | 'Macgyver' | 'Man vs. Wild' | 'Thinkiness')[];
     features: ICharacterFeature[];
     inventory: IItem[];
     experience: number;

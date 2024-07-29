@@ -29,6 +29,8 @@ export const NewCharacterProvider: React.FC<{children: React.ReactNode}> = ({ ch
     currentHealth: 0,
     maxHealth: 0,
     currentDerpPoints: 0,
+    trainedSkills: [],
+    features: [],
   });
 
   const [rerolls, setRerolls] = useState(5);
