@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { IFightingStyleFeature, ISkill } from "../../../types";
 import { fightingSkills } from "../../../utils/skills";
 import { useCharacter } from "../../../context/NewCharContext";
@@ -11,22 +11,30 @@ interface FightingStyleBuilderProps {
 }
 
 const FightingStyleBuilder = (props: FightingStyleBuilderProps) => {
+  const isReady = (): boolean => {
+    if (!featurePartial.name) return false;
+    if (!featurePartial.skill) return false;
+    if (featurePartial.upgraded && !featurePartial.mastery) return false;
+    return true;
+  }
+  
   const [featurePartial, setFeaturePartial] = useState<Partial<IFightingStyleFeature>>(props.feature);
-  const [ready, setReady] = useState(false);
+  const [ready, setReady] = useState(isReady());
 
-  const { character, updateCharacter, rerolls } = useCharacter();
+  const { character } = useCharacter();
 
   const updateFeaturePartial = (update: Partial<IFightingStyleFeature>) => {
-
     const newFeature = {
       ...featurePartial,
       ...update,
     };
-    if (character.features?.filter((feature) => feature.type === 'Fighting Style' && feature !== props.feature)) {
-      newFeature.upgraded = true;
-    }
     setFeaturePartial(newFeature);
+    setReady(isReady());
   }
+
+  useEffect(() => {
+    setReady(isReady());
+  }, [featurePartial])
 
   const getIsSkillAlreadyTrained = (skill: ISkill): boolean => {
     const matchingFeatures = character.features?.filter((feature, index) => feature.type === 'Fighting Style' && (feature as IFightingStyleFeature).skill === skill && index !== props.index);
@@ -48,14 +56,25 @@ const FightingStyleBuilder = (props: FightingStyleBuilderProps) => {
   return (
     <div className="flex-col">
       <h2>Fighting Style</h2>
-      <div>
-        {fightingSkills.map((skill) => (
-          <div className='flex-col'>
-            <button onClick={() => chooseSkill(skill)}>{skill.emoji} {skill.name}</button>
-            {!featurePartial.upgraded ? '' : skill.masteries.map((mastery) => (
-              <button onClick={() => updateFeaturePartial({ mastery, upgraded: true })} >{mastery}</button>
-            ))}
+      <div className="justify-center">
+        {fightingSkills.map((skill, ind) => (
+          <div key={ind} className='flex-col'>
+            <button className={`${featurePartial.skill === skill ? 'bg-teal-100' : ''}`} onClick={() => chooseSkill(skill)}>
+              <div className="flex-col">
+                <strong>{skill.emoji} {skill.name}</strong>
+                <div>Used For</div>
+                <ul className='text-sm'>
+                  {skill.usedFor.map((use, i) => <li key={i}>{use}</li>)}
+                </ul>
+              </div>
+            </button>
+            <div className='flex flex-col'>
+              {(!featurePartial.upgraded || featurePartial.skill !== skill) ? '' : skill.masteries.map((mastery, i) => (
+                <button className={featurePartial.mastery === mastery ? 'bg-teal-100' : ''} key={i} onClick={() => updateFeaturePartial({ mastery, upgraded: true })} >{mastery}</button>
+              ))}
+            </div>
             {/* Starting equipment list */}
+            {ind < fightingSkills.length - 1 ? <br /> : ''}
           </div>
         ))}
       </div>

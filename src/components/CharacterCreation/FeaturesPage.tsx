@@ -36,6 +36,7 @@ const FeaturesPage = () => {
 
   const getFeatureBuilder = (index: number, newFeature?: Partial<ICharacterFeature>) => {
     const feature = newFeature ?? character.features![index];
+    return <FightingStyleBuilder feature={feature as IFightingStyleFeature} index={index} updateCallback={setFeature} />;
     switch (feature.type) {
       case 'Artifact': return <></>;
       case 'Fighting Style': return <FightingStyleBuilder feature={feature as IFightingStyleFeature} index={index} updateCallback={setFeature} />
@@ -72,8 +73,6 @@ const FeaturesPage = () => {
         const ancestry: Partial<ISpecialAncestryFeature> = { type: 'Special Ancestry' };
         return ancestry;
     }
-    // console.error('Invalid feature type');
-    // return null;
   }
 
   const setFeature = (feature: ICharacterFeature, index: number) => {
@@ -94,19 +93,24 @@ const FeaturesPage = () => {
   const skillRollSection = <button onClick={getSkillRoll}>Roll Feature Set</button>;
 
   const featureBlock = (feature: ICharacterFeature | null, index: number) => {
-    // if (feature) return <button onClick={() => setFeatureBuild(getFeatureBuilder(feature!, index))}>{ feature.type }</button>
-    // const newFeature: Partial<ICharacterFeature> = getRandomFeature();
-    // // return <button onClick={() => setFeature(rollFeature()!, index)}>Roll Feature</button>
-    // return <button onClick={}>Roll Feature</button>
-
+    if (feature) {
+      return (
+        <div className='flex-col'>
+          <h3>{feature.type}</h3>
+          <div>{feature.name}</div>
+          <button onClick={() => setFeatureBuild(getFeatureBuilder(index, feature))}>Edit Feature</button>
+        </div>
+      )
+    }
     return (
-      <button onClick={() => setFeatureBuild(getFeatureBuilder(index, feature ?? getRandomFeature()))}>{feature ? 'Edit Feature' : 'Roll Feature'}</button>
+      <button onClick={() => setFeatureBuild(getFeatureBuilder(index, getRandomFeature()))}>Roll Feature</button>
     )
   }
 
   const featuresSection = <div>
     <ul>
       <li>{ featureBlock(character.features![0], 0) }</li>
+      <br/>
       <li>{ featureBlock(character.features![1], 1) }</li>
     </ul>
   </div>
