@@ -1,11 +1,128 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import Random from "../../utils/random";
+import { useCharacter } from "../../context/NewCharContext";
+import { ICharacterFeature, IArtifactFeature, IFightingStyleFeature, IMagicFeature, ISkillMasteryFeature, ISpecialAncestryFeature } from "../../types";
+import fightingStyles from "../../utils/fightingStyles";
+import { update } from "firebase/database";
+import FightingStyleBuilder from "./FeatureBuilders/FightingStyleBuilder";
 
 const FeaturesPage = () => {
+  const getIsReady = () => character.features!.length === 2;
+
+  const { character, updateCharacter, rerolls, chargenStage, setChargenStage } = useCharacter();
+
+  const [skillRoll, setSkillRoll] = useState<string>('')
+  // const [features, setFeatures] = useState<ICharacterFeature[]>([]);
+  const [ready, setReady] = useState(getIsReady());
+  const [featureBuild, setFeatureBuild] = useState<React.ReactElement | null>(null);
+
+
+  const skillRolls = [
+    'Brute Force',
+    'Ocular Prowess',
+    'Rad Moves',
+    'None',
+    'None',
+    'None',
+  ];
+
+  const featureTypes = [
+    'Artifact',
+    'Fighting Style',
+    'Magic',
+    'Skill Mastery',
+    'Special Ancestry',
+  ];
+
+  const getFeatureBuilder = (index: number, newFeature?: Partial<ICharacterFeature>) => {
+    const feature = newFeature ?? character.features![index];
+    switch (feature.type) {
+      case 'Artifact': return <></>;
+      case 'Fighting Style': return <FightingStyleBuilder feature={feature as IFightingStyleFeature} index={index} updateCallback={setFeature} />
+      case 'Magic': return <></>;
+      case 'Skill Mastery': return <></>;
+      case 'Special Ancestry': return <></>;
+      default:
+        console.log('Invalid feature type');
+        return <></>
+    }
+  }
+
+  const getSkillRoll = () => {
+    setSkillRoll(Random(skillRolls));
+  };
+
+  const getRandomFeature = (): Partial<ICharacterFeature> => {
+    const featureType = Random(featureTypes);
+    switch (featureType) {
+      case 'Artifact':
+        const artifact: Partial<IArtifactFeature> = { type: 'Artifact' };
+        return artifact;
+      case 'Fighting Style':
+        const fightingStyle: Partial<IFightingStyleFeature> = { type: 'Fighting Style'};
+        return fightingStyle;
+      case 'Magic':
+        const magic: Partial<IMagicFeature> = { type: 'Magic' };
+        return magic;
+      case 'Skill Mastery':
+        const skillMastery: Partial<ISkillMasteryFeature> = { type: 'Skill Mastery' };
+        return skillMastery;
+      // case 'Special Ancestry':
+      default:
+        const ancestry: Partial<ISpecialAncestryFeature> = { type: 'Special Ancestry' };
+        return ancestry;
+    }
+    // console.error('Invalid feature type');
+    // return null;
+  }
+
+  const setFeature = (feature: ICharacterFeature, index: number) => {
+    const features = [ ...character.features! ];
+    features[index] = feature;
+    updateCharacter({ features });
+    setFeatureBuild(null);
+  }
+
+  useEffect(() => {
+    if (['Brute Force', 'Ocular Prowess', 'Rad Moves'].includes(skillRoll)) {
+      updateCharacter({ features: [fightingStyles.find((style) => style.name === skillRoll)!] });
+    } else {
+      updateCharacter({ features: [] });
+    }
+  }, [skillRoll]);
+
+  const skillRollSection = <button onClick={getSkillRoll}>Roll Feature Set</button>;
+
+  const featureBlock = (feature: ICharacterFeature | null, index: number) => {
+    // if (feature) return <button onClick={() => setFeatureBuild(getFeatureBuilder(feature!, index))}>{ feature.type }</button>
+    // const newFeature: Partial<ICharacterFeature> = getRandomFeature();
+    // // return <button onClick={() => setFeature(rollFeature()!, index)}>Roll Feature</button>
+    // return <button onClick={}>Roll Feature</button>
+
     return (
-        <>
-            <h1>Roll Features</h1>
-        </>
+      <button onClick={() => setFeatureBuild(getFeatureBuilder(index, feature ?? getRandomFeature()))}>{feature ? 'Edit Feature' : 'Roll Feature'}</button>
     )
+  }
+
+  const featuresSection = <div>
+    <ul>
+      <li>{ featureBlock(character.features![0], 0) }</li>
+      <li>{ featureBlock(character.features![1], 1) }</li>
+    </ul>
+  </div>
+
+  const body = () => {
+    if (!skillRoll) return skillRollSection;
+    if (featureBuild) return featureBuild;
+    return featuresSection;
+  }
+  
+  return (
+    <>
+      <h1>Features</h1>
+      {body()}
+    </>
+  )
 }
 
 export default FeaturesPage;

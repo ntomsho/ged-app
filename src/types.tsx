@@ -21,6 +21,7 @@ export interface IDerpTrait {
 export interface ISkill {
     type: 'Fighting' | 'Normal';
     name: 'Brute Force' | 'Ocular Prowess' | 'Rad Moves' | 'Creepin\'' | 'Friendshippery' | 'Macgyver' | 'Man vs. Wild' | 'Thinkiness';
+    masteries: string[],
     usedFor: string[];
     extraInfo: string;
     emoji: string;
@@ -114,7 +115,7 @@ export interface IIntegerResource {
 export interface IFightingStyleFeature extends ICharacterFeature {
     type: 'Fighting Style';
     skill: ISkill;
-    masteryText: string;
+    mastery?: string;
 }
 
 export interface IArtifactFeature extends ICharacterFeature {

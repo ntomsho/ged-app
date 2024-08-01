@@ -19,7 +19,7 @@ const StartingSkillPage = () => {
 
   useEffect(() => {
     setReady(getIsReady());
-}, [character]);
+  }, [character]);
 
   return (
     <>
