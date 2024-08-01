@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useCharacter } from "../../context/NewCharContext";
 import { IDerpTrait } from "../../types";
 import * as Traits from '../../utils/derpTraits';

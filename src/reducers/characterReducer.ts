@@ -1,5 +1,4 @@
 import { ReducerAction, CREATE_CHARACTER } from "../actions";
-import { IUser } from "../types";
 
 const initialState = {};
 

@@ -1,8 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { UserAuth } from '../context/AuthContext';
-import { getDatabase, ref, onValue } from "firebase/database";
-import { ICharacter } from "../types";
-import { NewCharacterProvider, useCharacter } from "../context/NewCharContext";
+import { useCharacter } from "../context/NewCharContext";
 import TraitsPage from "../components/CharacterCreation/TraitsPage";
 import StartingSkillPage from "../components/CharacterCreation/StartingSkillPage";
 import FeaturesPage from "../components/CharacterCreation/FeaturesPage";

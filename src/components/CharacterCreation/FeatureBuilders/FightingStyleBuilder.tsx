@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { IFightingStyleFeature, ISkill } from "../../../types";
 import { fightingSkills } from "../../../utils/skills";
 import { useCharacter } from "../../../context/NewCharContext";
