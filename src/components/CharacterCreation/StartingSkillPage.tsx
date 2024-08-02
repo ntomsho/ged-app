@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { normalSkills } from '../../utils/skills';
 import { useCharacter } from "../../context/NewCharContext";
 import Random from "../../utils/random";

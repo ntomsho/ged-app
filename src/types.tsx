@@ -21,7 +21,7 @@ export interface IDerpTrait {
 export interface ISkill {
     type: 'Fighting' | 'Normal';
     name: 'Brute Force' | 'Ocular Prowess' | 'Rad Moves' | 'Creepin\'' | 'Friendshippery' | 'Macgyver' | 'Man vs. Wild' | 'Thinkiness';
-    masteries: string[],
+    masteries?: string[],
     usedFor: string[];
     extraInfo: string;
     emoji: string;
@@ -57,12 +57,18 @@ export interface ICharacter {
     level: number;
 }
 
+export type keywordType = 'Element' | 'Form' | 'Verb' | 'Animal' | 'Base';
+
 export interface Keyword {
     word: string;
-    type: 'Element' | 'Form' | 'Verb' | 'Animal' | 'Base';
+    type: keywordType;
     description: string;
     consumed: boolean;
     emoji?: string;
+}
+
+export interface KeywordSlot {
+    types: keywordType[];
 }
 
 export interface ElementKeyword extends Keyword {
@@ -94,22 +100,52 @@ export enum RestoreOn {
     Rest,
     Resupply,
     DealDamage,
+    Session,
+    Special,
 }
 
 export interface IResource {
     name: string;
+    type: string;
     restoredOn: RestoreOn;
     mainDescription: string;
     effectTexts: string[];
 }
 
-export interface IKeywordResource {
+export interface IKeywordResource extends IResource {
+    type: 'Keyword';
+    keywordSlots: KeywordSlot[];
     keywords: Keyword[];
+    spendable: boolean;
+    destroyOnSpend: boolean;
+    rerollOnRestore: boolean;
 }
 
-export interface IIntegerResource {
+export interface IIntegerResource extends IResource {
+    type: 'Integer';
     currentValue: number;
     maxValue: number;
+}
+
+export interface IPerDayResource extends IResource {
+    type: 'PerDay';
+    restoredOn: RestoreOn.Rest;
+    usesPerDay: number;
+    timesUsed: number;
+}
+
+export interface IPerSessionResource extends IResource {
+    type: 'PerSession';
+    restoredOn: RestoreOn.Session;
+    usesPerSession: number;
+    timesUsed: number;
+}
+
+export interface IHuntersQuarryResource extends IResource {
+    type: 'Hunter\'s Quarry',
+    restoredOn: RestoreOn.Special,
+    inUse: false,
+    currentTarget: string,
 }
 
 export interface IFightingStyleFeature extends ICharacterFeature {
@@ -129,7 +165,7 @@ export interface IArtifactFeature extends ICharacterFeature {
 export interface ISkillMasteryFeature extends ICharacterFeature {
     type: 'Skill Mastery'
     skill: ISkill;
-    masteryText: string;
+    mastery: string;
     mainDescription: string;
     resources?: IResource[];
     effectsText: string[];

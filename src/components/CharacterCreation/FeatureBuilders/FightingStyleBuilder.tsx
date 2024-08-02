@@ -69,7 +69,7 @@ const FightingStyleBuilder = (props: FightingStyleBuilderProps) => {
               </div>
             </button>
             <div className='flex flex-col'>
-              {(!featurePartial.upgraded || featurePartial.skill !== skill) ? '' : skill.masteries.map((mastery, i) => (
+              {(!featurePartial.upgraded || featurePartial.skill !== skill) ? '' : skill.masteries!.map((mastery, i) => (
                 <button className={featurePartial.mastery === mastery ? 'bg-teal-100' : ''} key={i} onClick={() => updateFeaturePartial({ mastery, upgraded: true })} >{mastery}</button>
               ))}
             </div>

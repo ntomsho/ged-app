@@ -45,7 +45,6 @@ export const normalSkills: ISkill[] = [
         type: "Normal",
         usedFor: ['Sneak attacks against unaware targets', 'Sneaking', 'Hiding', 'Picking locks', 'Stealing', 'Lying', 'Trickery', 'Underworld knowledge'],
         extraInfo: "",
-        masteries: [],
         emoji: '🥷'
     },
     {
@@ -53,7 +52,6 @@ export const normalSkills: ISkill[] = [
         type: "Normal",
         usedFor: ['Lead or command others', 'Entertain with performance art', 'Befriend', 'Persuade', 'Resist fear or mind-controlling effects'],
         extraInfo: "",
-        masteries: [],
         emoji: '🤝'
     },
     {
@@ -61,7 +59,6 @@ export const normalSkills: ISkill[] = [
         type: "Normal",
         usedFor: ['Craft or repair equipment', 'Build', 'Maintain', 'Assess craftsmanship'],
         extraInfo: "",
-        masteries: [],
         emoji: '🛠'
     },
     {
@@ -69,7 +66,6 @@ export const normalSkills: ISkill[] = [
         type: "Normal",
         usedFor: ['Survive in the wilderness', 'Identify plants and animals', 'Ride, tame, or communicate with beasts', 'Navigate', 'Forage', 'Track'],
         extraInfo: "",
-        masteries: [],
         emoji: '🏕'
     },
     {
@@ -77,10 +73,11 @@ export const normalSkills: ISkill[] = [
         type: "Normal",
         usedFor: ['Attack with traps or contrivances', 'See through deceptions', 'Interpret clues', 'Recall information', 'Persuade with logic'],
         extraInfo: "",
-        masteries: [],
         emoji: '📖'
     },
 ];
 
-
 export const allSkills = [ ...fightingSkills, ...normalSkills ];
+export const getSkill = (skillName: 'Creepin\'' | 'Friendshippery' | 'Macgyver' | 'Man vs. Wild' | 'Thinkiness'): ISkill => {
+    return normalSkills.find((skill) => skill.name === skillName)!;
+}
