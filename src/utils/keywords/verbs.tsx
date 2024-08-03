@@ -6,7 +6,7 @@ const verbs: VerbKeyword[] = [
         type: 'Verb',
         description: 'Take something in and make better use of it.',
         consumed: false,
-        emoji: 'U+1F6E1',
+        emoji: '🧽',
         gerund: 'Absorbing',
     },
     //...

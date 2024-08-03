@@ -6,7 +6,7 @@ const bases: Keyword[] = [
         type: 'Base',
         description: 'An explosive device, usually with a fuse or a trigger.',
         consumed: false,
-        emoji: 'U+1F4A3',
+        emoji: '💣',
     },
     //...
 ];

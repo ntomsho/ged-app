@@ -1,4 +1,4 @@
-import { IHuntersQuarryResource, IKeywordResource, IPerDayResource, IPerSessionResource, IResource, RestoreOn } from "../types";
+import { IHuntersQuarryResource, IIntegerResource, IKeywordResource, IPerDayResource, IPerSessionResource, IResource, RestoreOn } from "../types";
 
 export const smugglersLuck: IPerDayResource = {
   name: 'Smuggler\'s Luck',
@@ -95,4 +95,79 @@ export const accordingToPlan: IPerSessionResource = {
   timesUsed: 0,
   mainDescription: "",
   effectTexts: ['Once per session, you can declare things have gone According to Plan and you can retroactively declare you set a trap or created an Advantage that takes effect now.'],
+}
+
+export const wordsOfPower: IKeywordResource = {
+  name: 'Words of Power',
+  type: "Keyword",
+  keywordSlots: [{types: ['Element', 'Form', 'Verb']}, {types: ['Element', 'Form', 'Verb']}, {types: ['Element', 'Form', 'Verb']}, {types: ['Element', 'Form', 'Verb']}],
+  keywords: [],
+  spendable: true,
+  destroyOnSpend: false,
+  rerollOnRestore: false,
+  restoredOn: RestoreOn.Rest,
+  mainDescription: "",
+  effectTexts: ['Combine any two or three Words of Power to cast a spell based on the phrase. You must spend one of the words used in the spell and all your words are replenished when you rest.']
+}
+
+export const animalForms: IKeywordResource = {
+  name: 'Animal Forms',
+  type: "Keyword",
+  keywordSlots: [{types: ['Animal']}, {types: ['Animal']}, {types: ['Animal']}, {types: ['Animal']}, {types: ['Animal']}],
+  keywords: [],
+  spendable: true,
+  destroyOnSpend: false,
+  rerollOnRestore: false,
+  restoredOn: RestoreOn.Rest,
+  mainDescription: "",
+  effectTexts: ['Spend one of the animal form keywords to assume the shape of that animal for up to one hour. While transformed, you roll with +2 on anything your form is good at and -1 on anything your form is bad at unless it involves purely your own mental abilities (in which case use your own Skills as normal). Any form that would be larger than a bear is a version of that creature shrunk down to a bear-sized version.']
+}
+
+export const runes: IKeywordResource = {
+  name: 'Runes',
+  type: "Keyword",
+  keywordSlots: [{types: ['Element', 'Form', 'Verb']}, {types: ['Element', 'Form', 'Verb']}, {types: ['Element', 'Form', 'Verb']}],
+  keywords: [],
+  spendable: false,
+  destroyOnSpend: false,
+  rerollOnRestore: false,
+  restoredOn: RestoreOn.Special,
+  mainDescription: "",
+  effectTexts: []
+}
+
+export const runicPoints: IIntegerResource = {
+  name: 'Runic Points',
+  type: "Integer",
+  currentValue: 0,
+  maxValue: 3,
+  restoredOn: RestoreOn.Rest,
+  mainDescription: "",
+  effectTexts: ['You can write or inscribe the runes you know on any objects (though putting more than one Rune on the same object causes them both to fail). Whenever you rest, you gain up to 3 Runic Points. You can spend a Runic Point to activate one of your runes, creating a spell effect originating from the object based on the rune. The effect lasts for up to 10 minutes on permanently inscribed Runes and for only one Action on temporarily drawn Runes.']
+}
+
+export const alchemicalBases: IKeywordResource = {
+  name: 'Alchemical Bases',
+  type: 'Keyword',
+  keywordSlots: [{types: ['Base']}, {types: ['Base']}, {types: ['Base']}],
+  keywords: [],
+  spendable: true,
+  destroyOnSpend: true,
+  rerollOnRestore: false,
+  restoredOn: RestoreOn.Resupply,
+  mainDescription: "",
+  effectTexts: []
+}
+
+export const alchemicalCatalysts: IKeywordResource = {
+  name: 'Alchemical Catalysts',
+  type: 'Keyword',
+  keywordSlots: [{types: ['Element', 'Verb']}, {types: ['Element', 'Verb']}, {types: ['Element', 'Verb']}],
+  keywords: [],
+  spendable: true,
+  destroyOnSpend: true,
+  rerollOnRestore: true,
+  restoredOn: RestoreOn.Resupply,
+  mainDescription: "",
+  effectTexts: ['You have a mobile alchemy lab and you are proficient in its use. Whenever you resupply, roll 3 random Alchemical Bases and 3 random Alchemical Catalysts (Elements or Verbs). You can combine a Base with a Catalyst to create an Alchemical Compound that acts as a spell with the appropriate properties. Unused Compounds lose their potency a day after creation and the lab can\'t hold more than 3 Bases and 3 Catalysts at a time.']
 }

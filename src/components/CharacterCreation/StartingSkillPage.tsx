@@ -32,7 +32,7 @@ const StartingSkillPage = () => {
         </div>
       </div>
     ))}
-    <button disabled={rerolls <= 0} onClick={() => setSkill(Random(normalSkills).name)}></button>
+    <button onClick={() => setSkill(Random(normalSkills).name)}>Reroll</button>
     { ready ? <button onClick={() => setChargenStage(chargenStage + 1)}>{'>'}</button> : '' }
     </>
   )

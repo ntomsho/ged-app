@@ -6,7 +6,7 @@ const forms: Keyword[] = [
         type: 'Form',
         description: 'A protective form that covers the body.',
         consumed: false,
-        emoji: 'U+1F6E1',
+        emoji: '🛡',
     },
     //...
 ];

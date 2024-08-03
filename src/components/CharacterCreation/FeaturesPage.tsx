@@ -6,6 +6,7 @@ import fightingStyles from "../../utils/fightingStyles";
 import { update } from "firebase/database";
 import FightingStyleBuilder from "./FeatureBuilders/FightingStyleBuilder";
 import SkillMasteryBuilder from "./FeatureBuilders/SkillMasteryBuilder";
+import MagicBuilder from "./FeatureBuilders/MagicBuilder";
 
 const FeaturesPage = () => {
   const getIsReady = () => character.features!.length === 2;
@@ -38,12 +39,12 @@ const FeaturesPage = () => {
   const getFeatureBuilder = (index: number, newFeature?: Partial<ICharacterFeature>) => {
     const feature = newFeature ?? character.features![index];
     /* */
-    return <SkillMasteryBuilder feature={feature as ISkillMasteryFeature} index={index} updateCallback={setFeature} />;
+    return <MagicBuilder feature={feature as IMagicFeature} index={index} updateCallback={setFeature} />;
     /* */
     switch (feature.type) {
       case 'Artifact': return <></>;
       case 'Fighting Style': return <FightingStyleBuilder feature={feature as IFightingStyleFeature} index={index} updateCallback={setFeature} />
-      case 'Magic': return <></>;
+      case 'Magic': return <MagicBuilder feature={feature as IMagicFeature} index={index} updateCallback={setFeature} />;
       case 'Skill Mastery': return <SkillMasteryBuilder feature={feature as ISkillMasteryFeature} index={index} updateCallback={setFeature} />;
       case 'Special Ancestry': return <></>;
       default:

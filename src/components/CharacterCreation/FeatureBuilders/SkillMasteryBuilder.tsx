@@ -33,7 +33,7 @@ const SkillMasteryBuilder = (props: SkillMasteryBuilderProps) => {
 
   useEffect(() => {
     setReady(isReady());
-  }, [featurePartial])
+  }, [featurePartial]);
 
   const getIsSkillAlreadyTrained = (skill: ISkill): boolean => {
     const matchingFeatures = character.features?.filter((feature, index) => feature.type === 'Skill Mastery' && (feature as ISkillMasteryFeature).skill === skill && index !== props.index);

@@ -6,7 +6,7 @@ const elements: ElementKeyword[] = [
         type: 'Element',
         description: 'Nasty stinging toxic liquid.',
         consumed: false,
-        emoji: 'U+2623',
+        emoji: '☣',
         adjective: 'Acidic',
     },
     //...
