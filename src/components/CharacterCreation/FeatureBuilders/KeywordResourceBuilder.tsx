@@ -1,4 +1,4 @@
-import { IKeywordResource, Keyword, keywordType } from "../../../types";
+import { AnimalKeyword, IKeywordResource, Keyword, keywordType } from "../../../types";
 import animals from "../../../utils/keywords/animals";
 import bases from "../../../utils/keywords/bases";
 import elements from "../../../utils/keywords/elements";
@@ -50,7 +50,7 @@ const KeywordResourceBuilder = (props: KeywordResourceBuilderProps) => {
     return keywords.map((keyword, i) =>(
       <div key={i}>
         <div className={'border-2'}>
-          {keyword.emoji} {keyword.word} ({keyword.type})
+          {keyword.emoji} {keyword.word} ({keyword.type}{(keyword as AnimalKeyword).subType ? ` - ${(keyword as AnimalKeyword).subType}` : ''})
         </div>
         <button onClick={() => rerollKeyword(i)}>Reroll</button>
       </div>

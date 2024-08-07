@@ -7,7 +7,8 @@ const verbs: VerbKeyword[] = [
         description: 'Take something in and make better use of it.',
         consumed: false,
         emoji: '🧽',
-        gerund: 'Absorbing',
+        participle: 'Absorbing',
+        gerund: 'Absorption',
     },
     //...
 ];

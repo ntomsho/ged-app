@@ -8,6 +8,7 @@ const elements: ElementKeyword[] = [
         consumed: false,
         emoji: '☣',
         adjective: 'Acidic',
+        plural: 'Acids',
     },
     //...
 ]

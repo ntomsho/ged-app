@@ -37,6 +37,7 @@ export interface ICharacterFeature {
 export interface IItem {
     type: string;
     name: string;
+    description: string;
 }
 
 export interface ICharacter {
@@ -74,11 +75,13 @@ export interface KeywordSlot {
 export interface ElementKeyword extends Keyword {
     type: 'Element';
     adjective: string;
+    plural: string;
 }
 
 export interface VerbKeyword extends Keyword {
     type: 'Verb';
     gerund: string;
+    participle: string;
 }
 
 export interface FormKeyWord extends Keyword {}
@@ -116,6 +119,7 @@ export interface IKeywordResource extends IResource {
     type: 'Keyword';
     keywordSlots: KeywordSlot[];
     keywords: Keyword[];
+    fixed: boolean;
     spendable: boolean;
     destroyOnSpend: boolean;
     rerollOnRestore: boolean;
@@ -156,10 +160,18 @@ export interface IFightingStyleFeature extends ICharacterFeature {
 
 export interface IArtifactFeature extends ICharacterFeature {
     type: 'Artifact';
-    subType: 'Magic Garb' | 'Magic Objects' | 'Magic Weapons';
+    artifactName: string;
+    subType: 'Magic Garb' | 'Magic Object' | 'Magic Weapon';
     mainDescription: string;
     resources?: IResource[];
     effectTexts: string[];
+    choice?: IFeatureChoice;
+    // artifact: IItem;
+}
+
+export interface IArtifactWeaponFeature extends IArtifactFeature {
+    subType: 'Magic Weapon';
+    weaponType: IWeapon;
 }
 
 export interface ISkillMasteryFeature extends ICharacterFeature {
@@ -175,6 +187,7 @@ export interface ISpecialAncestry {
     name: string;
     resources?: IResource[];
     effectsText: string[];
+    choice?: IFeatureChoice;
 }
 
 export interface ISpecialAncestryFeature extends ICharacterFeature {
@@ -187,4 +200,23 @@ export interface IMagicFeature extends ICharacterFeature {
     mainDescription: string;
     unlockingSkill: ISkill | null;
     resources: IResource[];
+}
+
+export interface IFeatureChoice {
+    choices: FeatureChoice[];
+    chosenIndex: number;
+}
+
+export interface FeatureChoice {
+    alternateChoiceTexts?: string[] // Alternate display text for when showing a whole resource is too mucch
+    effectsText?: string[]; // New effects text bullets
+    resources?: (IResource | null)[]; // Resources mapping to the existing ones: If null, leave existing resource
+    otherEffect?: { targetedValue: string, modifier: number }; // Additional effects to other parts of the character sheet
+}
+
+export type WeaponType = 'Heavy Melee' | 'Light Melee' | 'Ranged' | 'Heavy Thrown' | 'Light Thrown';
+
+export interface IWeapon extends IItem {
+    type: 'Weapon',
+    weaponType: WeaponType;
 }

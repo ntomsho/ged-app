@@ -1,4 +1,45 @@
 import { IHuntersQuarryResource, IIntegerResource, IKeywordResource, IPerDayResource, IPerSessionResource, IResource, RestoreOn } from "../types";
+import getKeyword from "./keywords/keywords";
+
+export const getCharge = (value: number, effectTexts: string[]): IIntegerResource => {
+  return {
+    name: 'Charge',
+    type: 'Integer',
+    currentValue: value,
+    maxValue: value,
+    restoredOn: RestoreOn.Rest,
+    mainDescription: '',
+    effectTexts: effectTexts,
+  };
+};
+
+export const singleElement: IKeywordResource = {
+  name: 'Element',
+  type: 'Keyword',
+  keywordSlots: [{types: ['Element']}],
+  keywords: [],
+  fixed: false,
+  spendable: false,
+  destroyOnSpend: false,
+  rerollOnRestore: false,
+  restoredOn: RestoreOn.Special,
+  mainDescription: "",
+  effectTexts: []
+}
+
+export const singleAnimal: IKeywordResource = {
+  name: 'Animal',
+  type: 'Keyword',
+  keywordSlots: [{types: ['Animal']}],
+  keywords: [],
+  fixed: false,
+  spendable: false,
+  destroyOnSpend: false,
+  rerollOnRestore: false,
+  restoredOn: RestoreOn.Special,
+  mainDescription: "",
+  effectTexts: []
+}
 
 export const smugglersLuck: IPerDayResource = {
   name: 'Smuggler\'s Luck',
@@ -72,6 +113,7 @@ export const chimericCompanion: IKeywordResource = {
   spendable: false,
   destroyOnSpend: false,
   rerollOnRestore: false,
+  fixed: false,
   restoredOn: RestoreOn.Rest,
   mainDescription: "",
   effectTexts: ['You have a loyal Chimeric Companion that travels with you and aids you. Every day, roll a new magic beast form that it will assume for that day. Your companion rolls at +2 on Actions it’s well suited for and -1 on Actions it’s poorly suited for. If you companion is injured as a Serious Consequence, it retreats to a crystal orb you keep, where it rests until it can reform the next day.']
@@ -105,6 +147,7 @@ export const wordsOfPower: IKeywordResource = {
   spendable: true,
   destroyOnSpend: false,
   rerollOnRestore: false,
+  fixed: false,
   restoredOn: RestoreOn.Rest,
   mainDescription: "",
   effectTexts: ['Combine any two or three Words of Power to cast a spell based on the phrase. You must spend one of the words used in the spell and all your words are replenished when you rest.']
@@ -118,6 +161,7 @@ export const animalForms: IKeywordResource = {
   spendable: true,
   destroyOnSpend: false,
   rerollOnRestore: false,
+  fixed: false,
   restoredOn: RestoreOn.Rest,
   mainDescription: "",
   effectTexts: ['Spend one of the animal form keywords to assume the shape of that animal for up to one hour. While transformed, you roll with +2 on anything your form is good at and -1 on anything your form is bad at unless it involves purely your own mental abilities (in which case use your own Skills as normal). Any form that would be larger than a bear is a version of that creature shrunk down to a bear-sized version.']
@@ -131,6 +175,7 @@ export const runes: IKeywordResource = {
   spendable: false,
   destroyOnSpend: false,
   rerollOnRestore: false,
+  fixed: false,
   restoredOn: RestoreOn.Special,
   mainDescription: "",
   effectTexts: []
@@ -154,6 +199,7 @@ export const alchemicalBases: IKeywordResource = {
   spendable: true,
   destroyOnSpend: true,
   rerollOnRestore: false,
+  fixed: false,
   restoredOn: RestoreOn.Resupply,
   mainDescription: "",
   effectTexts: []
@@ -167,7 +213,22 @@ export const alchemicalCatalysts: IKeywordResource = {
   spendable: true,
   destroyOnSpend: true,
   rerollOnRestore: true,
+  fixed: false,
   restoredOn: RestoreOn.Resupply,
   mainDescription: "",
   effectTexts: ['You have a mobile alchemy lab and you are proficient in its use. Whenever you resupply, roll 3 random Alchemical Bases and 3 random Alchemical Catalysts (Elements or Verbs). You can combine a Base with a Catalyst to create an Alchemical Compound that acts as a spell with the appropriate properties. Unused Compounds lose their potency a day after creation and the lab can\'t hold more than 3 Bases and 3 Catalysts at a time.']
+}
+
+export const elementalGarbKeywords: IKeywordResource = {
+  name: 'Elemental Garb',
+  type: "Keyword",
+  keywordSlots: [{types: ['Form']}, {types: ['Form']}, {types: ['Form']}, {types: ['Form']}],
+  keywords: [getKeyword('Form', 'Armor')!, getKeyword('Form', 'Aura')!, getKeyword('Form', 'Cloak')!, getKeyword('Form', 'Shield')!],
+  fixed: true,
+  spendable: false,
+  destroyOnSpend: false,
+  rerollOnRestore: false,
+  restoredOn: RestoreOn.Special,
+  mainDescription: "",
+  effectTexts: []
 }
