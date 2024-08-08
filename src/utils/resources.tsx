@@ -232,3 +232,17 @@ export const elementalGarbKeywords: IKeywordResource = {
   mainDescription: "",
   effectTexts: []
 }
+
+export const elementBreath: IKeywordResource = {
+  name: 'Element Breath',
+  type: "Keyword",
+  keywordSlots: [{types: ['Element']}],
+  keywords: [],
+  fixed: false,
+  spendable: false,
+  destroyOnSpend: false,
+  rerollOnRestore: false,
+  restoredOn: RestoreOn.Special,
+  mainDescription: "",
+  effectTexts: ['You can unleash a blast of the element from your mouth. Roll with Magic for an Attack that deals Standard (2) damage, +1 damage against targets vulnerable to the element, and can be an area attack. You must rest for at least 15 minutes before you can use the breath weapon again.']
+}

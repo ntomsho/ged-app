@@ -1,6 +1,15 @@
-export default function Random<Type>(array: Type[]): Type {
+export default function Random<Type>(array: Type[], excludeArray?: Type[]): Type {
     if (!Array.isArray(array)) {
-        console.log('Error: value is not an array');
+        throw new Error('value is not an array');
     }
-    return array[Math.floor(Math.random() * array.length)];
+    if (!!excludeArray && array.every((val) => excludeArray.includes(val))) {
+        throw new Error('all array values have been excluded');
+    }
+    let returnValue = array[Math.floor(Math.random() * array.length)];
+    if (!!excludeArray) {
+        while (excludeArray.includes(returnValue)) {
+            returnValue = array[Math.floor(Math.random() * array.length)];
+        }
+    }
+    return returnValue;
 }

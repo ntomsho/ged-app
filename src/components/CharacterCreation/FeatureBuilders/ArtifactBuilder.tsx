@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useCharacter } from "../../../context/NewCharContext";
-import { IArtifactFeature, IArtifactWeaponFeature, IFeatureChoice, IKeywordResource, IResource, IWeapon, WeaponType } from "../../../types";
+import { IArtifactFeature, IArtifactWeaponFeature, IKeywordResource, IResource, IWeapon, WeaponType } from "../../../types";
 import Random from "../../../utils/random";
 import artifacts from "../../../utils/artifacts";
 import { getRandomWeapon, weaponTypes } from "../../../utils/equipment";

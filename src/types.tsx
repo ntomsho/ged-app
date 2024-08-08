@@ -186,7 +186,7 @@ export interface ISkillMasteryFeature extends ICharacterFeature {
 export interface ISpecialAncestry {
     name: string;
     resources?: IResource[];
-    effectsText: string[];
+    effectTexts: string[];
     choice?: IFeatureChoice;
 }
 

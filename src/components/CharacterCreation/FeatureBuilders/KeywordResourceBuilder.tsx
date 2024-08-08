@@ -61,7 +61,7 @@ const KeywordResourceBuilder = (props: KeywordResourceBuilderProps) => {
     <div>
       <h3>{resource.name}</h3>
       <div>{keywordsSection()}</div>
-      <button onClick={rollAllKeywords}>{keywords.length === 0 ? 'Roll Keywords' : 'Reroll All'}</button>
+      {resource.keywordSlots.length > 1 ? <button onClick={rollAllKeywords}>{keywords.length === 0 ? 'Roll Keywords' : 'Reroll All'}</button> : ''}
     </div>
   )
 }

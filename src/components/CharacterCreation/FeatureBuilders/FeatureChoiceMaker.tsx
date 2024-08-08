@@ -42,7 +42,7 @@ const FeatureChoiceMaker = (props: FeatureChoiceMakerProps) => {
   }
 
   const choicesSection = () => {
-    return choices.map((choice, i) => choiceBlock(choice, i));
+    return choices.map((choice, i) => <div key={i}>{choiceBlock(choice, i)}</div>);
   }
 
   const confirmButton = () => {

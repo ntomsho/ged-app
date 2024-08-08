@@ -60,7 +60,7 @@ const MagicBuilder = (props: MagicBuilderProps) => {
     });
     character.features?.forEach((feature) => {
       const skillFeature = feature as ISkillMasteryFeature;
-      if (skillFeature) {
+      if (skillFeature.skill) {
         const magicType = getMagicTypeByUnlockingSkill(skillFeature.skill.name);
         if (magicType) magicTypes.push(magicType);
       }
